@@ -68,7 +68,11 @@ def hidden_movies(request):
     movies = Movie.objects.filter(hidden=True)
     template_data = {'title': 'Hidden Movies', 'movies': movies}
     return render(request, 'movies/hidden.html', {'template_data': template_data})
-
+def unhide_movie(request, movie_id):
+    movie = get_object_or_404(Movie, id=movie_id)
+    movie.hidden = False
+    movie.save()
+    return redirect('movies:hidden_movies')
 @login_required
 def toggle_hide_movie(request, id):
     movie = get_object_or_404(Movie, id=id)

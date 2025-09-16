@@ -10,6 +10,8 @@
           <div class="card-body text-center">
             <h5 class="card-title">{{ movie.title }}</h5>
             <p>{{ movie.description }}</p>
+            <!-- Unhide button -->
+            <a href="{% url 'movies:unhide' movie.id %}" class="btn btn-success mt-2">Unhide</a>
           </div>
         </div>
       </div>

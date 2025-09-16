@@ -33,4 +33,5 @@ urlpatterns = [
     path('hidden/', views.hidden_movies, name='hidden'),
     path('<int:id>/hide/', views.hide_movie, name='hide'),
     path('<int:id>/unhide/', views.unhide_movie, name='unhide'),
+    
 ]
