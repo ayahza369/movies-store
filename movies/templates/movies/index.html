@@ -15,7 +15,7 @@
                   <div class="input-group-text">
                     Search</div>
                   <input type="text" class="form-control"
-                    name="search">
+                    name="search" value="{{ request.GET.search }}">
                 </div>
               </div>
               <div class="col-auto">
@@ -25,22 +25,34 @@
             </div>
           </form>
         </p>
+        <!-- Link to hidden movies page -->
+        <a href="{% url 'movies:hidden' %}" class="btn btn-warning mt-2">View Hidden Movies</a>
+
       </div>
     </div>
     <div class="row">
       {% for movie in template_data.movies %}
       <div class="col-md-4 col-lg-3 mb-2">
         <div class="p-2 card align-items-center pt-4">
-          <img src="{{ movie.image.url }}""
+          <img src="{{ movie.image.url }}"
             class="card-img-top rounded img-card-200">
           <div class="card-body text-center">
-            <a href="{% url 'movies.show' id=movie.id %}"
-              class="btn bg-dark text-white">
-            {{ movie.name }}
+            <a href="{% url 'movies:show' id=movie.id %}"
+              class="btn bg-dark text-white mb-2">
+              {{ movie.name }}
             </a>
+            <!-- Toggle Hide/Unhide -->
+            {% if movie.hidden %}
+  <a href="{% url 'movies:unhide' movie.id %}" class="btn btn-success btn-sm">Unhide</a>
+{% else %}
+  <a href="{% url 'movies:hide' movie.id %}" class="btn btn-danger btn-sm">Hide</a>
+{% endif %}
+
           </div>
         </div>
       </div>
+      {% empty %}
+      <p>No movies found.</p>
       {% endfor %}
     </div>
   </div>
